@@ -5,7 +5,7 @@ This guide is for testers, QA and test leads. It applies to the web app and to t
 - Web app: https://d2i3n5h90346wi.cloudfront.net
 - In Jira: open a project and choose **TestHub** in the left sidebar. You are signed in through Jira. (If you do not see it, see [guide 3](03-jira-integration.md).)
 
-The top bar has **Dashboard, Test Library, Test Cycles, Test Plans, Reports, Settings** and a project picker. Pick your project first.
+The top bar has **Dashboard, Test Library, Test Cycles, Test Plans, Reports, Configuration, Settings** and a project picker. Pick your project first.
 
 ## 1. Getting started in five steps
 
@@ -21,11 +21,14 @@ The top bar has **Dashboard, Test Library, Test Cycles, Test Plans, Reports, Set
 - Click the arrow to expand or collapse a folder. The tree remembers what you opened.
 - The **⋯** menu on a folder: Add subfolder, Rename, Delete, Expand all, Collapse all, **Create test cycle** (from every test in the folder and its subfolders), the folder **ID** (click to copy) and **Copy folder link** (web app).
 - The 🔍 button above the tree finds folders by name. The **＋** button creates a top-level folder.
-- Drag test cases from the list onto a folder to move them.
+- Drag test cases from the list onto a folder to move them. **Drag a folder** onto another folder to nest it, or onto **All test cases** to make it top-level; a folder cannot be moved into its own subfolder.
+- Counts in brackets include subfolders and leave out archived tests.
 - **All test cases** shows everything; **Unfiled** shows tests without a folder.
 
 **The list**
-- Search matches name, key, label, Jira issue and the text of steps, objective and precondition.
+- Search needs every word you type to match, in any order. The switch beside the box chooses **Names and labels** or **Everything** (steps, objective and precondition too). Matches are highlighted; a result that matches only inside steps or the description is tagged.
+- The **order** dropdown offers Newest first, Oldest first, Recently updated and Name A to Z, and remembers your choice.
+- **Archived test cases** (under the folders) lists archived tests with a **Restore** button.
 - Filters: status, priority, automation, component, and a **Generated** button that shows tests sent by external tools.
 - **Columns** shows or hides: Priority, Status, Automation, Labels, Owner, Component, Est. min, Steps, Last result, Jira, Updated, and your custom fields.
 - Click a column heading to sort. Choose how many rows per page at the bottom.
@@ -44,10 +47,9 @@ The top bar has **Dashboard, Test Library, Test Cycles, Test Plans, Reports, Set
 
 | Automation value | Meaning |
 |---|---|
-| None | Not decided yet (the default). |
 | Automated | An automated test exists. |
 | Can't automate | It cannot reasonably be automated. |
-| Manual | It is run by hand. |
+| Manual | It is run by hand (the default for new tests). |
 
 **Reusable steps and data**
 - A step can **call another test**. Its steps are included live when the test runs, and the called test shows "used by".
@@ -69,7 +71,7 @@ The top bar has **Dashboard, Test Library, Test Cycles, Test Plans, Reports, Set
 
 ## 4. Test Cycles: running tests
 
-**Create a cycle.** Click **New cycle**. Fill in Name, Build / version, Environment, Start and End dates, Test plan and Folder. Open the cycle and use **Add cases** to choose tests by folder or by search. You can also create a cycle straight from a Library folder (folder ⋯ menu → Create test cycle) or from selected tests (**Add to cycle**).
+**Create a cycle.** Click **New cycle**. Fill in Name, Build / version, Environment (from Configuration), Iteration, Start and End dates, Test plan and Folder. Open the cycle and use **Add cases** to choose tests by folder or by search. You can also create a cycle straight from a Library folder (folder ⋯ menu → Create test cycle) or from selected tests (**Add to cycle**).
 
 **The cycle list.** Search, sort, group by status, plan, build or environment, organise cycles in folders (drag a cycle onto a folder), and page through the results. The play button opens the cycle ready to run.
 
@@ -113,14 +115,34 @@ Open the import wizard from the Test Library.
 - **TestHub CSV**, or a CSV from **Zephyr Scale**, **Xray** or **TestRail**, or any CSV with a header row. Map the columns, choose the mode, preview, then import. An Excel file must be saved as CSV first.
 - **From Jira issues:** enter a JQL query and TestHub creates draft tests from the matching issues.
 
-## 9. Inside Jira
+## 9. Configuration (everyone)
+
+The **Configuration** item in the top bar holds the lists and fields a project uses. Everyone who can sign in can edit it, including Viewers, so agree who changes what. It has three groups, and every list works the same way: type a name in the row at the top and click **Add**, drag the handle to reorder, use the icons to archive or delete, and the **i** icon explains why something is locked.
+
+| Group | Lists |
+|---|---|
+| General | Environments, Labels, Iterations, Priorities, Datasets |
+| Statuses | Test Cases, Test Plans, Test Cycles, Executions |
+| Custom fields | Test Cases, Test Plans, Test Cycles, Test Steps, Test Executions |
+
+- **Environments:** the values offered in the Environment dropdown of a cycle. Renaming one updates the cycles that use it.
+- **Labels:** the labels registered for the project, with how many tests use each. Renaming a label updates every test. **Delete unused** removes labels no test uses.
+- **Iterations:** name, description, start and end date. Pick one on a cycle; it shows in the cycle header.
+- **Priorities:** the four built-in priorities plus your own. Each custom priority "behaves like" a built-in one, so sorting and reports keep working. Each value can have a colour.
+- **Datasets:** shared tables of values, edited as CSV. In a test, **Use a shared dataset** copies one in (a copy, not a live link).
+- **Statuses:** the built-in values plus your own. A custom status "behaves like" a built-in status, so totals, reports, the review workflow and CI uploads keep working; reports show the built-in name. Each status can have a colour, and custom ones also appear as extra result buttons.
+- **Custom fields:** text, multi-line text, number, date, checkbox, single-choice list or multi-choice list; tick **Required** to make a field mandatory. Fields appear on test cases, plans, cycles, on each test step and in the execution panel.
+
+Rules: built-in values cannot be renamed or deleted, but they can be **archived** (hidden from lists; existing data keeps them). At least one value per list must stay active. A value that is in use cannot be deleted, so archive it instead. Duplicate names are refused.
+
+## 10. Inside Jira
 
 - **TestHub page:** the whole application in the project sidebar. Use it exactly like the web app.
 - **Tests panel:** on a Jira issue, shows the tests covering it and their latest results, and (if enabled by an admin) a button to create a draft test from the issue.
 - Publishing to Confluence and Confluence searches are available in the web app only.
-- Server-wide settings (Jira connection, Jira app, Confluence, webhooks, scheduled reports) are in the web app. Inside Jira, admins can use Settings → Project, Custom fields, Users and Keys for the current project.
+- Server-wide settings (Jira connection, Jira app, Confluence, webhooks, scheduled reports) are in the web app. Inside Jira, admins can use Settings → Project, Users and Keys (and Configuration for everyone) for the current project.
 
-## 10. Tips
+## 11. Tips
 
 - Use labels and components to slice the library; use folders for structure.
 - Use datasets instead of copying a test many times.

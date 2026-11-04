@@ -56,9 +56,11 @@ The token is encrypted in the database and never shown again. There is **one** c
 
 **Settings → Confluence.** TestHub uses the Jira connection to talk to Confluence. Pick a **default space** for **Publish to Confluence** on cycles and plans. The account needs "Add pages" in that space. Publishing again updates the same page. You can also link Confluence pages to tests, and install the live **TestHub results** macro (guide 3).
 
-## 6. Custom fields
+## 6. Configuration and custom fields
 
-**Settings → Custom fields** (also available inside Jira). Add fields per project for **test cases** or **test cycles**: text, long text, number, dropdown, checkbox or date; mark them required; reorder, rename or delete them. Fields appear in the forms, as Library columns, in reports and in CSV import and export as `Custom: <name>` columns. A field's type cannot be changed after it is created.
+Custom fields moved to the **Configuration** page in the top bar (also available inside Jira), which **everyone can edit, including Viewers**. Admins should tell the team who changes what. Under **Custom fields** there are separate lists for test cases, plans, cycles, steps and executions. Types: single line, multi-line, number, date, checkbox, single-choice list and multi-choice list; mark a field **Required**, expand a row to rename it or edit its options, drag to reorder, or delete it. A field's type cannot be changed after it is created. Fields appear in the forms, as Library columns, in reports and in CSV import and export as `Custom: <name>` columns. A required field is enforced when the request includes a `custom` object (all web forms do); an API call that leaves `custom` out skips the check.
+
+The same page manages environments, labels, iterations, priorities, shared datasets and custom statuses. Built-in values cannot be renamed or deleted but can be archived; a value in use cannot be deleted. See [guide 2, section 9](02-user-guide.md).
 
 ## 7. API keys
 

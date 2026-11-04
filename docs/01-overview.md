@@ -35,15 +35,18 @@ TestHub is a self-hosted test management platform, modelled on Zephyr Scale and 
 ## Feature summary
 
 **Test library**
-- Nested folders with a ⋯ menu (add subfolder, rename, delete, expand all, collapse all, create a test cycle from the folder, copy ID, copy link), folder search and drag-and-drop.
-- Search by name, key, label, Jira issue and step text. Filters for status, priority, automation and component.
+- Nested folders with a ⋯ menu (add subfolder, rename, delete, expand all, collapse all, create a test cycle from the folder, copy ID, copy link), folder search, and drag-and-drop of folders and tests. Counts include subfolders; archived tests have their own view with Restore.
+- Search where every word must match, with a switch between names and labels or everything including steps; matches are highlighted. Order by newest, oldest, recently updated or name. Filters for status, priority, automation and component.
 - Columns you can show or hide: priority, status, automation, labels, owner, component, estimated minutes, steps, last result, Jira and updated; plus custom fields.
 - Bulk actions: clone, archive, move to a folder, set priority, add to a cycle, delete (admins).
 - Step-by-step, plain text or BDD (Given/When/Then) scripts; reusable steps (a step can call another test); parameters and datasets (one result per data row).
 - Versions: any content change creates a new version, which you can view and restore.
 - Review workflow: Draft, In Review, Approved, Deprecated, with approvers and a history.
-- Automation status: None, Automated, Can't automate, Manual. Estimated time, component, labels, owner, comments.
+- Automation status: Automated, Can't automate, Manual (new tests start as Manual). Estimated time, component, labels, owner, comments.
 - Import from TestHub CSV, Zephyr Scale, Xray, TestRail or any CSV, or create draft tests from Jira issues with a JQL query. CSV export of everything, one folder (with subfolders) or unfiled tests.
+
+**Configuration (open to everyone)**
+- One page for environments, labels, iterations, priorities, shared datasets, custom statuses (tests, plans, cycles, executions) and custom fields (tests, plans, cycles, steps, executions). Custom statuses and priorities behave like a built-in one, so reports keep working. Built-in values can be archived; values in use cannot be deleted.
 
 **Running tests**
 - Cycles with progress, grouping, folders and paging. Quick Pass / Fail / Blocked, per-step results, actual results, comments, assignee, duration, evidence attachments and execution history.
